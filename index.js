@@ -31,18 +31,3 @@ function Left(value){
 exports.Right = Right;
 exports.Left = Left;
 exports.Either = Either;
-
-
-Either(function(){ throw new Error('boo') })
-	.bind(function(){
-		console.log('Right', arguments);
-		return 1;
-	}, function(){
-		console.log('Left', arguments);
-		return Left('shit');
-	})
-	.bind(function(){
-		console.log('Right', arguments);
-	}, function(){
-		console.log('Left', arguments);
-	})

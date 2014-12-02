@@ -1,26 +1,23 @@
 {
   "name": "either",
   "version": "0.0.0",
-  "description": "Naive Either monad implementation",
+  "description": "A JavaScript Either implementation",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alexeyraspopov/either"
-  },
+  "repository": "dgelong/either",
   "keywords": [
     "either",
     "monad",
     "functional",
-    "just",
-    "nothing"
+    "failure",
+    "success"
   ],
-  "author": "Alexey Raspopov <avenger7x13@gmail.com> (https://github.com/alexeyraspopov)",
+  "author": "Alexey Raspopov (https://github.com/alexeyraspopov)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alexeyraspopov/either/issues"
+    "url": "https://github.com/dgelong/either/issues"
   },
-  "homepage": "https://github.com/alexeyraspopov/either"
+  "homepage": "https://github.com/dgelong/either"
 }

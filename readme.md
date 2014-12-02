@@ -1,15 +1,17 @@
 # Either
 
-Naive Either monad implementation.
+A JavaScript Either implementation.
 
-# Install
+## Install
 
 	npm install alexeyraspopov/either
 
-# Usage
+## API
+
+## Usage
 
 TBD
 
-# License
+## License
 
 MIT License &copy; Alexey Raspopov

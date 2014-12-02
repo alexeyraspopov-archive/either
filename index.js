@@ -1,33 +1,31 @@
 function isMonad(value){
-	return value && (value.isRight || value.isLeft);
+	return value && (value.isSuccess || value.isFailure);
 }
 
 function Either(fn){
 	try{
-		return Right(fn());
+		return Success(fn());
 	}catch(e){
-		return Left(e);
+		return Failure(e);
 	}
 }
 
-function Right(value){
+function Success(value){
 	return isMonad(value) ? value : {
-		isRight: true,
-		bind: function(right){
-			return Right(right(value));
-		}
+		isSuccess: true,
+		bind: function(right){ return Success(right(value)); },
+		toString: function(){ return 'Success(' + value + ')'; }
 	};
 }
 
-function Left(value){
+function Failure(value){
 	return isMonad(value) ? value : {
-		isLeft: true,
-		bind: function(_, left){
-			return Left(left(value));
-		}
+		isFailure: true,
+		bind: function(_, left){ return Failure(left(value)); },
+		toString: function(){ return 'Failure(' + value + ')'; }
 	};
 }
 
-exports.Right = Right;
-exports.Left = Left;
+exports.Success = Success;
+exports.Failure = Failure;
 exports.Either = Either;

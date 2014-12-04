@@ -21,11 +21,11 @@ function Success(value){
 function Failure(value){
 	return isMonad(value) ? value : {
 		isFailure: true,
-		bind: function(_, left){ return Failure(left(value)); },
+		bind: function(_, alternative){ return Success(alternative(value)); },
 		toString: function(){ return 'Failure(' + value + ')'; }
 	};
 }
 
-exports.Success = Success;
-exports.Failure = Failure;
-exports.Either = Either;
+Either.Success = Success;
+Either.Failure = Failure;
+module.exports = Either;

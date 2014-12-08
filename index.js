@@ -1,6 +1,4 @@
-function isMonad(value){
-	return value && value.isMonad;
-}
+'use strict';
 
 function isFunction(value){
 	return typeof value === 'function';
@@ -14,34 +12,20 @@ function run(fn){
 	}
 }
 
-function Either(fn){
-	return {
-		isMonad: true,
-		bind: function(right, left){
-			return run(fn).bind(right, left);
-		}
-	};
-}
+var Monad = require('dgelong.monad'),
+	Either, Success, Failure;
 
-function Success(value){
-	return isMonad(value) ? value : {
-		isMonad: true,
-		bind: function(right){
-			return Success(right(value));
-		},
-		toString: function(){ return 'Success(' + value + ')'; }
-	};
-}
+Either = Monad('Either', function(value, right, left){
+	return run(value).bind(right, left);
+});
 
-function Failure(value){
-	return isMonad(value) ? value : {
-		isMonad: true,
-		bind: function(_, alternative){
-			return isFunction(alternative) ? Success(alternative(value)): Failure(value);
-		},
-		toString: function(){ return 'Failure(' + value + ')'; }
-	};
-}
+Success = Monad('Success', function(value, right){
+	return Success(right(value));
+});
+
+Failure = Monad('Failure', function(value, _, left){
+	return isFunction(left) ? Success(left(value)) : Failure(value);
+});
 
 Either.Success = Success;
 Either.Failure = Failure;

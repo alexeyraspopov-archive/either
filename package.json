@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/dgelong/either/issues"
   },
-  "homepage": "https://github.com/dgelong/either"
+  "homepage": "https://github.com/dgelong/either",
+  "dependencies": {
+    "dgelong.monad": "^0.1.0"
+  }
 }

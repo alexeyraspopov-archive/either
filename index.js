@@ -2,6 +2,10 @@ function isMonad(value){
 	return value && value.isMonad;
 }
 
+function isFunction(value){
+	return typeof value === 'function';
+}
+
 function run(fn){
 	try{
 		return Success(fn());
@@ -22,7 +26,9 @@ function Either(fn){
 function Success(value){
 	return isMonad(value) ? value : {
 		isMonad: true,
-		bind: function(right){ return Success(right(value)); },
+		bind: function(right){
+			return Success(right(value));
+		},
 		toString: function(){ return 'Success(' + value + ')'; }
 	};
 }
@@ -30,7 +36,9 @@ function Success(value){
 function Failure(value){
 	return isMonad(value) ? value : {
 		isMonad: true,
-		bind: function(_, alternative){ return Success(alternative(value)); },
+		bind: function(_, alternative){
+			return isFunction(alternative) ? Success(alternative(value)): Failure(value);
+		},
 		toString: function(){ return 'Failure(' + value + ')'; }
 	};
 }

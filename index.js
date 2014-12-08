@@ -1,8 +1,8 @@
 function isMonad(value){
-	return value && (value.isSuccess || value.isFailure);
+	return value && value.isMonad;
 }
 
-function Either(fn){
+function run(fn){
 	try{
 		return Success(fn());
 	}catch(e){
@@ -10,9 +10,18 @@ function Either(fn){
 	}
 }
 
+function Either(fn){
+	return {
+		isMonad: true,
+		bind: function(right, left){
+			return run(fn).bind(right, left);
+		}
+	};
+}
+
 function Success(value){
 	return isMonad(value) ? value : {
-		isSuccess: true,
+		isMonad: true,
 		bind: function(right){ return Success(right(value)); },
 		toString: function(){ return 'Success(' + value + ')'; }
 	};
@@ -20,7 +29,7 @@ function Success(value){
 
 function Failure(value){
 	return isMonad(value) ? value : {
-		isFailure: true,
+		isMonad: true,
 		bind: function(_, alternative){ return Success(alternative(value)); },
 		toString: function(){ return 'Failure(' + value + ')'; }
 	};

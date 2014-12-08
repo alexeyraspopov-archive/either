@@ -15,8 +15,8 @@ function run(fn){
 var Monad = require('dgelong.monad'),
 	Either, Success, Failure;
 
-Either = Monad('Either', function(value, right, left){
-	return run(value).bind(right, left);
+Either = Monad('Either', function(fn, right, left){
+	return run(fn).bind(right, left);
 });
 
 Success = Monad('Success', function(value, right){

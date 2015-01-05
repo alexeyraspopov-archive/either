@@ -11,8 +11,8 @@
     "either",
     "monad",
     "functional",
-    "failure",
-    "success"
+    "right",
+    "left"
   ],
   "author": "Alexey Raspopov (https://github.com/alexeyraspopov)",
   "license": "MIT",

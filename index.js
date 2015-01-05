@@ -6,27 +6,27 @@ function isFunction(value){
 
 function run(fn){
 	try{
-		return Success(fn());
+		return Right(fn());
 	}catch(e){
-		return Failure(e);
+		return Left(e);
 	}
 }
 
 var Monad = require('dgelong.monad'),
-	Either, Success, Failure;
+	Either, Right, Left;
 
 Either = Monad('Either', function(fn, right, left){
 	return run(fn).bind(right, left);
 });
 
-Success = Monad('Success', function(value, right){
-	return Success(right(value));
+Right = Monad('Right', function(value, right){
+	return Right(right(value));
 });
 
-Failure = Monad('Failure', function(value, _, left){
-	return isFunction(left) ? Success(left(value)) : Failure(value);
+Left = Monad('Left', function(value, _, left){
+	return isFunction(left) ? Right(left(value)) : Left(value);
 });
 
-Either.Success = Success;
-Either.Failure = Failure;
+Either.Right = Right;
+Either.Left = Left;
 module.exports = Either;
